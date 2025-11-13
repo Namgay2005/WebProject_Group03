@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>College Hostel Portal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+
+    nav {
+      background-color: #2c3e50;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 30px;
+    }
+
+    .logo {
+      font-weight: bold;
+      font-size: 22px;
+    }
+
+    ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      margin-left: 20px;
+    }
+
+    a {
+      color: white;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    a:hover {
+      color: #1abc9c;
+    }
+
+    #content {
+      padding: 40px;
+    }
+
+    .hostel-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .hostel-card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      cursor: pointer;
+      text-align: center;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .hostel-card:hover {
+      background-color: #1abc9c;
+      color: white;
+    }
+
+    .booking-box {
+      margin-top: 20px;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+
+    .booking-box input {
+      padding: 8px;
+      width: 100%;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .booking-box button {
+      padding: 8px 12px;
+      background-color: #1abc9c;
+      border: none;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .booking-box button:hover {
+      background-color: #16a085;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">🏫 College Portal</div>
+    <ul>
+      <li><a href="#" id="home-link">Home</a></li>
+      <li><a href="#" id="hostels-link">Hostels</a></li>
+    </ul>
+  </nav>
+
+  <div id="content">
+    <h1>Welcome to the College Hostel Portal</h1>
+    <p>Click the "Hostels" link to view available hostels and book your room.</p>
+  </div>
+
+  <script>
+    // --- Data for hostels ---
+    const hostelData = {
+      dechenling: { name: "Dechenling Hostel", rooms: 20, booked: [3, 8, 15] },
+      gakiling: { name: "Gakiling Hostel", rooms: 15, booked: [5, 7, 11] },
+      khandroling: { name: "Khandroling Hostel", rooms: 25, booked: [10, 18] },
+      dekiling: { name: "Dekiling Hostel", rooms: 18, booked: [4, 6, 13] },
+      sherabling: { name: "Sherabling Hostel", rooms: 22, booked: [9, 17] },
+      karmaling: { name: "Karmaling Hostel", rooms: 16, booked: [2, 12] },
+    };
+
+    // --- Load Home Page ---
+    function loadHome() {
+      document.getElementById("content").innerHTML = `
+        <h1>Welcome to the College Hostel Portal</h1>
+        <p>Click the "Hostels" link to view available hostels and book your room.</p>
+      `;
+    }
+
+    // --- Load Hostels List ---
+    function loadHostels() {
+      let html = `
+        <h1>Available Hostels</h1>
+        <div class="hostel-list">
+      `;
+      Object.keys(hostelData).forEach(key => {
+        html += `<div class="hostel-card" onclick="loadHostelPage('${key}')">${hostelData[key].name}</div>`;
+      });
+      html += `</div>`;
+      document.getElementById("content").innerHTML = html;
+    }
+
+    // --- Load Individual Hostel Page ---
+    function loadHostelPage(key) {
+      const hostel = hostelData[key];
+      let html = `
+        <h1>${hostel.name}</h1>
+        <p>${hostel.name} offers a comfortable stay with ${hostel.rooms} rooms available for students.</p>
+        <div class="booking-box">
+          <label for="room">Enter Room Number (1–${hostel.rooms}):</label>
+          <input type="number" id="room" placeholder="Room No" />
+          <button onclick="bookRoom('${key}')">Book</button>
+          <p id="message"></p>
+        </div>
+      `;
+      document.getElementById("content").innerHTML = html;
+    }
+
+    // --- Room Booking Function ---
+    function bookRoom(key) {
+      const hostel = hostelData[key];
+      const roomNo = parseInt(document.getElementById("room").value);
+      const message = document.getElementById("message");
+
+      if (isNaN(roomNo) || roomNo < 1 || roomNo > hostel.rooms) {
+        message.textContent = "⚠️ Invalid room number!";
+        message.style.color = "orange";
+        return;
+      }
+
+      if (hostel.booked.includes(roomNo)) {
+        message.textContent = "❌ Room unavailable!";
+        message.style.color = "red";
+      } else {
+        hostel.booked.push(roomNo);
+        message.textContent = "✅ Room booked successfully!";
+        message.style.color = "green";
+      }
+    }
+
+    // --- Navbar Navigation ---
+    document.getElementById("home-link").addEventListener("click", loadHome);
+    document.getElementById("hostels-link").addEventListener("click", loadHostels);
+
+    // --- Default Page ---
+    loadHome();
+  </script>
+</body>
+</html>

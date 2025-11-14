@@ -1,4 +1,4 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -217,13 +217,14 @@
     <h2>Our Hostel and Rooms</h2>
     <div class="hostel-grid">
       <div class="hostel-card">
-        <a href="dechenling.html" style="text-decoration: none; color: inherit;"></a>
-        <img src="{% static 'images/Dechenling.jpg' %}" alt="Dechenling">
-        <div class="card-info">
-          <h3>Dechenling</h3>
-          <p>Total Rooms: 16</p>
-          <p>Vacant Rooms: 2</p>
-        </div>
+        <a href="{% url 'dechenling' %}" style="text-decoration: none; color: inherit;">
+          <img src="{% static 'images/Dechenling.jpg' %}" alt="Dechenling">
+          <div class="card-info">
+            <h3>Dechenling</h3>
+            <p>Total Rooms: 16</p>
+            <p>Vacant Rooms: 2</p>
+          </div>
+        </a>
       </div>
 
       <div class="hostel-card">
@@ -292,22 +293,32 @@
     </div>
   </footer>
   <script>
-  // JavaScript for navigation
-    document.getElementById("hostels-link").addEventListener("click", function() {
-      window.location.href = "hostels.html";
-    });
+  // JavaScript for navigation and Back button support
+    try {
+      document.getElementById("hostels-link").addEventListener("click", function(e) {
+        e.preventDefault();
+        window.location.href = "{% url 'hostels' %}";
+      });
 
-    document.getElementById("home-link").addEventListener("click", function() {
-      window.location.href = "index.html";
-    });
+      document.getElementById("home-link").addEventListener("click", function(e) {
+        e.preventDefault();
+        window.location.href = "{% url 'home' %}";
+      });
 
-    document.getElementById("about-link").addEventListener("click", function() {
-      alert("About page coming soon!");
-    });
+      document.getElementById("about-link").addEventListener("click", function(e) {
+        e.preventDefault();
+        alert("About page coming soon!");
+      });
 
-    document.getElementById("contact-link").addEventListener("click", function() {
-      alert("Contact page coming soon!");
-    });
-    </script>
-</body>
-</html>
+      document.getElementById("contact-link").addEventListener("click", function(e) {
+        e.preventDefault();
+        alert("Contact page coming soon!");
+      });
+    } catch (err) {
+      // ignore if elements are missing (defensive)
+    }
+  </script>
+
+  {% include 'includes/_back_button.html' %}
+ </body>
+ </html>

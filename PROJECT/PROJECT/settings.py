@@ -129,3 +129,16 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Email Configuration
+# Using Console backend for testing (prints emails to server console)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'wangmokuenga2004@gmail.com'
+# EMAIL_HOST_PASSWORD = 'kgzagfvtqdwcdvrb'
+DEFAULT_FROM_EMAIL = 'wangmokuenga2004@gmail.com'
+SERVER_EMAIL = 'wangmokuenga2004@gmail.com'
+

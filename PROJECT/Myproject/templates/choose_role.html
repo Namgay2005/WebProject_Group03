@@ -106,13 +106,14 @@
       <div class="join-options">
         <h2>Joining as:</h2>
         <a href="{% url 'student_login' %}">Student</a>
-        <a href="{% url 'staff_login' %}">Staff</a>
+        <a href="{% url 'sso_login' %}">SSO</a>
       </div>
       <div class="logo-wrapper">
         <img src="{% static 'images/logo.jpg' %}" alt="Samtse College of Education logo">
       </div>
     </div>
   </div>
+  {% include 'includes/_back_button.html' with always_show_back=True %}
 </body>
 </html>
 

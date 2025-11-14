@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SSO - Leave Requests</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Poppins', sans-serif; background: #f5f5f5; }
+    header { padding: 12px 28px; background: #102d5c; color: #fff; display: flex; justify-content: space-between; align-items: center; }
+    header nav a { color: #fff; text-decoration: none; margin-left: 20px; }
+    .container { max-width: 1000px; margin: 30px auto; padding: 20px; }
+    .back-link { display: inline-block; margin-bottom: 20px; color: #102d5c; text-decoration: none; font-weight: 600; }
+    .back-link:hover { text-decoration: underline; }
+    .leaves-list { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .leaves-list h2 { margin-bottom: 20px; color: #102d5c; }
+    .leave-card { border-left: 4px solid #2196f3; padding: 15px; margin-bottom: 15px; background: #f9f9f9; border-radius: 6px; display: grid; grid-template-columns: 1fr auto; gap: 15px; }
+    .leave-info h3 { color: #102d5c; margin-bottom: 8px; }
+    .leave-info p { color: #666; margin: 6px 0; }
+    .status { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+    .status.pending { background: #fff3cd; color: #856404; }
+    .status.approved { background: #d4edda; color: #155724; }
+    .status.rejected { background: #f8d7da; color: #721c24; }
+    .actions { display: flex; gap: 10px; }
+    .actions form { display: inline; }
+    .actions select, .actions button { padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; font-weight: 600; cursor: pointer; }
+    .actions button { background: #2196f3; color: #fff; border: none; }
+    .actions button:hover { background: #1976d2; }
+  </style>
+</head>
+<body>
+  <header>
+    <div><img src="{% static 'images/logo.jpg' %}" alt="logo" style="height:44px;"></div>
+    <nav>
+      <a href="{% url 'sso_dashboard' %}">Dashboard</a>
+      <a href="{% url 'sso_logout' %}">Logout</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <a href="{% url 'sso_dashboard' %}" class="back-link">← Back to Dashboard</a>
+
+    <div class="leaves-list">
+      <h2>📅 Leave Requests</h2>
+      {% if leaves %}
+        {% for leave in leaves %}
+          <div class="leave-card">
+            <div class="leave-info">
+              <h3>Leave from {{ leave.start_date|date:"d M Y" }} to {{ leave.end_date|date:"d M Y" }}</h3>
+              <p><strong>Student:</strong> {{ leave.student.name }} ({{ leave.student.student_id }})</p>
+              <p><strong>Email:</strong> {{ leave.student.email }}</p>
+              <p><strong>Reason:</strong> {{ leave.reason }}</p>
+              <p><strong>Applied:</strong> {{ leave.created_at|date:"d M Y, H:i" }}</p>
+              <p><strong>Status:</strong> <span class="status {{ leave.status }}">{{ leave.get_status_display }}</span></p>
+            </div>
+            <div class="actions">
+              <form method="post" style="display: flex; gap: 10px;">
+                {% csrf_token %}
+                <input type="hidden" name="leave_id" value="{{ leave.id }}">
+                <select name="status" required>
+                  <option value="">Approve/Reject</option>
+                  <option value="pending">Pending</option>
+                  <option value="approved">Approve</option>
+                  <option value="rejected">Reject</option>
+                </select>
+                <button type="submit">Update</button>
+              </form>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p style="text-align: center; color: #999; padding: 20px;">No leave requests yet.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  {% include 'includes/_back_button.html' %}
+
+</body>
+</html>

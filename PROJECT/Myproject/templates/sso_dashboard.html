@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SSO Dashboard</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Poppins', sans-serif; background: #f5f5f5; }
+    header { padding: 12px 28px; background: #102d5c; color: #fff; display: flex; justify-content: space-between; align-items: center; }
+    header nav a { color: #fff; text-decoration: none; margin-left: 20px; }
+    .container { max-width: 1000px; margin: 30px auto; padding: 20px; }
+    .welcome { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 30px; }
+    .welcome h2 { color: #102d5c; margin-bottom: 10px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+    .card { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; transition: 0.3s; }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+    .card h3 { color: #102d5c; margin-bottom: 15px; font-size: 24px; }
+    .card a { display: inline-block; margin-top: 15px; padding: 10px 20px; background: #f57c00; color: #fff; text-decoration: none; border-radius: 6px; font-weight: 600; }
+    .card a:hover { background: #e36c00; }
+  </style>
+</head>
+<body>
+  <header>
+    <div><img src="{% static 'images/logo.jpg' %}" alt="logo" style="height:44px;"></div>
+    <nav>
+      <a href="{% url 'home' %}">Home</a>
+      <a href="{% url 'sso_logout' %}">Logout</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="welcome">
+      <h2>Welcome, {{ sso_name }}! 👋</h2>
+      <p><strong>SSO ID:</strong> {{ sso_id }}</p>
+      <p>Manage student complaints, maintenance requests, leave approvals, and attendance records.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>📝 Complaints</h3>
+        <p>Review and manage student complaints</p>
+        <a href="{% url 'sso_complaints' %}">View Complaints</a>
+      </div>
+      <div class="card">
+        <h3>🔧 Maintenance</h3>
+        <p>Approve and track maintenance requests</p>
+        <a href="{% url 'sso_maintenance' %}">View Requests</a>
+      </div>
+      <div class="card">
+        <h3>📅 Leave</h3>
+        <p>Approve or reject leave requests</p>
+        <a href="{% url 'sso_leave' %}">View Requests</a>
+      </div>
+      <div class="card">
+        <h3>✅ Attendance</h3>
+        <p>View and manage student attendance</p>
+        <a href="{% url 'sso_attendance' %}">View Records</a>
+      </div>
+    </div>
+  </div>
+  {% include 'includes/_back_button.html' %}
+</body>
+</html>

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Student Login | College Hostel Portal</title>
+  <title>SSO Login | College Hostel Portal</title>
   <style>
     body {
       margin: 0;
@@ -87,6 +87,15 @@
       background-color: #e36c00;
     }
 
+    .error-message {
+      background-color: #f8d7da;
+      color: #721c24;
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      border: 1px solid #f5c6cb;
+    }
+
     .logo-wrapper {
       flex: 1;
       display: flex;
@@ -120,16 +129,19 @@
   <div class="login-wrapper">
     <div class="login-card">
       <div class="login-fields">
-        <h2>Student Login</h2>
+        <h2>SSO Login</h2>
+        <p style="text-align: center; color: #666; margin-bottom: 20px; font-size: 14px;">
+          Student Service Officer Portal
+        </p>
         {% if error_message %}
-          <div style="background-color: #f8d7da; color: #721c24; padding: 12px; border-radius: 6px; margin-bottom: 20px; border: 1px solid #f5c6cb;">
+          <div class="error-message">
             {{ error_message }}
           </div>
         {% endif %}
         <form method="post">
           {% csrf_token %}
-          <label for="student-id">Student ID:</label>
-          <input type="text" id="student-id" name="student_id" placeholder="Enter Student ID" required>
+          <label for="sso-id">SSO ID:</label>
+          <input type="text" id="sso-id" name="sso_id" placeholder="Enter SSO ID" required>
 
           <label for="password">Password:</label>
           <input type="password" id="password" name="password" placeholder="Enter Your Password" required>
@@ -145,5 +157,3 @@
   {% include 'includes/_back_button.html' with always_show_back=True %}
 </body>
 </html>
-
-

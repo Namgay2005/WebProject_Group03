@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SSO - Attendance</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Poppins', sans-serif; background: #f5f5f5; }
+    header { padding: 12px 28px; background: #102d5c; color: #fff; display: flex; justify-content: space-between; align-items: center; }
+    header nav a { color: #fff; text-decoration: none; margin-left: 20px; }
+    .container { max-width: 1000px; margin: 30px auto; padding: 20px; }
+    .back-link { display: inline-block; margin-bottom: 20px; color: #102d5c; text-decoration: none; font-weight: 600; }
+    .back-link:hover { text-decoration: underline; }
+    .filter-section { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 20px; }
+    .filter-section form { display: flex; gap: 10px; }
+    .filter-section select, .filter-section button { padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-weight: 600; cursor: pointer; }
+    .filter-section button { background: #f57c00; color: #fff; border: none; }
+    .filter-section button:hover { background: #e36c00; }
+    .attendance-list { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .attendance-list h2 { margin-bottom: 20px; color: #102d5c; }
+    table { width: 100%; border-collapse: collapse; }
+    table th { background: #102d5c; color: #fff; padding: 12px; text-align: left; }
+    table td { padding: 12px; border-bottom: 1px solid #ddd; }
+    table tr:hover { background: #f9f9f9; }
+    .status { display: inline-block; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+    .status.present { background: #d4edda; color: #155724; }
+    .status.absent { background: #f8d7da; color: #721c24; }
+    .status.leave { background: #d1ecf1; color: #0c5460; }
+  </style>
+</head>
+<body>
+  <header>
+    <div><img src="{% static 'images/logo.jpg' %}" alt="logo" style="height:44px;"></div>
+    <nav>
+      <a href="{% url 'sso_dashboard' %}">Dashboard</a>
+      <a href="{% url 'sso_logout' %}">Logout</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <a href="{% url 'sso_dashboard' %}" class="back-link">← Back to Dashboard</a>
+
+    <div class="filter-section">
+      <h3>Select Student to View Attendance</h3>
+      <form method="get">
+        <select name="student_id" required>
+          <option value="">-- Select a Student --</option>
+          {% for student in students %}
+            <option value="{{ student.id }}" {% if student.id|stringformat:"s" == selected_student_id %}selected{% endif %}>
+              {{ student.name }} ({{ student.student_id }})
+            </option>
+          {% endfor %}
+        </select>
+        <button type="submit">Load Records</button>
+      </form>
+    </div>
+
+    {% if attendance_records %}
+      <div class="attendance-list">
+        <h2>✅ Attendance Records</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for record in attendance_records %}
+              <tr>
+                <td>{{ record.date|date:"d M Y (D)" }}</td>
+                <td><span class="status {{ record.status }}">{{ record.get_status_display }}</span></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% elif selected_student_id %}
+      <div class="attendance-list">
+        <p style="text-align: center; color: #999; padding: 20px;">No attendance records found for this student.</p>
+      </div>
+    {% endif %}
+  </div>
+
+  {% include 'includes/_back_button.html' %}
+
+</body>
+</html>

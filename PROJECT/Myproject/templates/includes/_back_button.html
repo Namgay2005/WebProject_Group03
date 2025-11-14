@@ -1,0 +1,5 @@
+{% comment %}Reusable floating Back button.
+Shows when either `always_show_back` is true (passed via include) or when there's a HTTP_REFERER in the request.{% endcomment %}
+{% if always_show_back or request.META.HTTP_REFERER %}
+  <button onclick="history.back()" style="position:fixed;left:16px;bottom:16px;background:#102d5c;color:#fff;border:none;padding:10px 12px;border-radius:8px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.15);">← Back</button>
+{% endif %}

@@ -230,11 +230,16 @@
     }
 
     // --- Navbar Navigation ---
-    document.getElementById("home-link").addEventListener("click", loadHome);
-    document.getElementById("hostels-link").addEventListener("click", loadHostels);
+    try {
+      document.getElementById("home-link").addEventListener("click", function(e){ e.preventDefault(); loadHome(); });
+      document.getElementById("hostels-link").addEventListener("click", function(e){ e.preventDefault(); loadHostels(); });
+    } catch (err) {
+      // ignore if elements missing
+    }
 
     // --- Default Page ---
     loadHome();
   </script>
-</body>
-</html>
+  {% include 'includes/_back_button.html' %}
+ </body>
+ </html>

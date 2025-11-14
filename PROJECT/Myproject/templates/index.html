@@ -1,4 +1,4 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -13,7 +13,6 @@
   <header>
     <nav class="navbar">
       <div class="logo">
-        <img src="{% static 'images/logo.jpg' %}" alt="College Logo">
         <h2>🏫 College Portal - Hostel Management System</h2>
       </div>
       <ul>
@@ -34,7 +33,7 @@
         <h1>Welcome to <br> Samtse College Hostel Management System</h1>
 
 
-        <img src="{% static 'images/M.webp' %}" alt="Hostel homepage" style="width:100px; height:auto; margin:20px 0;">
+  <!-- image removed per request -->
         <p>
           A secure student data system for managing hostel allocation,
           maintenance, and accommodation records.
@@ -44,70 +43,6 @@
     </div>
   </section>
 
-  <!-- Hostels Section -->
-  <section class="hostels">
-    <h2>Our Hostels and Rooms</h2>
-    <div class="hostel-grid">
-      <div class="hostel-card">
-          
-        <img src="{% static 'images/Dechenling.jpg' %}" alt="Dechenling">
-        <div class="card-info">
-          <h3>Dechenling</h3>
-          <p>Total Rooms: 16</p>
-          <p>Vacant Rooms: 2</p>
-        </div>
-      </div>
-      <div class="hostel-card">
-        <img src="{% static 'images/Dekiling.jpg' %}" alt="Dekling">
-        <div class="card-info">
-          <h3>Dekling</h3>
-          <p>Total Rooms: 10</p>
-          <p>Vacant Rooms: 1</p>
-        </div>
-      </div>
-      <div class="hostel-card">
-
-
-        <img src="{% static 'images/kandorling.jpg' %}" alt="Khandrooling">
-
-        <div class="card-info">
-          <h3>Khandrooling</h3>
-          <p>Total Rooms: 16</p>
-          <p>Vacant Rooms: 14</p>
-        </div>
-      </div>
-      <div class="hostel-card">
-
-
-       <img src="{% static 'images/Gakiling.jpg' %}" alt="Gakiling">
-        <div class="card-info">
-          <h3>Gakiling</h3>
-          <p>Total Rooms: 10</p>
-          <p>Vacant Rooms: 5</p>
-        </div>
-      </div>
-      <div class="hostel-card">
-
-
-        <img src="{% static 'images/Karmaling.jpg' %}" alt="Karmaling">
-        <div class="card-info">
-          <h3>Karmaling</h3>
-          <p>Total Rooms: 39</p>
-          <p>Vacant Rooms: 26</p>
-        </div>
-      </div>
-      <div class="hostel-card">
-
-
-        <img src="{% static 'images/sherabling.jpg' %}" alt="Sherabling">
-        <div class="card-info">
-          <h3>Sherabling</h3>
-          <p>Total Rooms: 45</p>
-          <p>Vacant Rooms: 36</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- Footer -->
   <footer>

@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select Role | College Hostel Portal</title>
+  
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .join-wrapper {
+      width: 85%;
+      max-width: 960px;
+      background-color: #12326b;
+      padding: 60px 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+      display: flex;
+      justify-content: center;
+    }
+
+    .join-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 45px 55px;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      max-width: 720px;
+      width: 100%;
+    }
+
+    .join-options {
+      flex: 1;
+    }
+
+    .join-options h2 {
+      margin-bottom: 30px;
+      color: #12326b;
+    }
+
+    .join-options a {
+      display: block;
+      width: 180px;
+      padding: 12px 20px;
+      margin-bottom: 15px;
+      text-align: center;
+      background-color: #f57c00;
+      color: #fff;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .join-options a:hover {
+      background-color: #e36c00;
+      transform: translateY(-2px);
+    }
+
+    .logo-wrapper {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logo-wrapper img {
+      max-width: 260px;
+      width: 100%;
+      height: auto;
+    }
+
+    @media (max-width: 768px) {
+      .join-wrapper {
+        padding: 40px 20px;
+      }
+
+      .join-card {
+        flex-direction: column;
+        padding: 30px;
+      }
+
+      .join-options a {
+        width: 100%;
+      }
+
+      .logo-wrapper img {
+        max-width: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="join-wrapper">
+    <div class="join-card">
+      <div class="join-options">
+        <h2>Joining as:</h2>
+        <a href="{% url 'student_login' %}">Student</a>
+        <a href="{% url 'staff_login' %}">Staff</a>
+      </div>
+      <div class="logo-wrapper">
+        <img src="{% static 'images/logo.jpg' %}" alt="Samtse College of Education logo">
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+

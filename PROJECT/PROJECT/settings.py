@@ -119,7 +119,9 @@ STATIC_URL = '/static/'
 
 import os
 # Serve static files from the Myproject app's static folder during development
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'Myproject', 'static')]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'Myproject', 'static'),
+]
 
 
 

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -73,6 +74,15 @@
       color: white;
     }
 
+    .hostel-image {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 12px;
+      margin: 20px auto;
+      display: block;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
     .booking-box {
       margin-top: 20px;
       background-color: white;
@@ -121,12 +131,42 @@
   <script>
     // --- Data for hostels ---
     const hostelData = {
-      dechenling: { name: "Dechenling Hostel", rooms: 20, booked: [3, 8, 15] },
-      gakiling: { name: "Gakiling Hostel", rooms: 15, booked: [5, 7, 11] },
-      khandroling: { name: "Khandroling Hostel", rooms: 25, booked: [10, 18] },
-      dekiling: { name: "Dekiling Hostel", rooms: 18, booked: [4, 6, 13] },
-      sherabling: { name: "Sherabling Hostel", rooms: 22, booked: [9, 17] },
-      karmaling: { name: "Karmaling Hostel", rooms: 16, booked: [2, 12] },
+      dechenling: {
+        name: "Dechenling Hostel",
+        rooms: 20,
+        booked: [3, 8, 15],
+        image: "{% static 'images/Dechenling.jpg' %}",
+      },
+      gakiling: {
+        name: "Gakiling Hostel",
+        rooms: 15,
+        booked: [5, 7, 11],
+        image: "{% static 'images/Gakiling.jpg' %}",
+      },
+      khandroling: {
+        name: "Khandroling Hostel",
+        rooms: 25,
+        booked: [10, 18],
+        image: "{% static 'images/kandorling.jpg' %}",
+      },
+      dekiling: {
+        name: "Dekiling Hostel",
+        rooms: 18,
+        booked: [4, 6, 13],
+        image: "{% static 'images/Dekiling.jpg' %}",
+      },
+      sherabling: {
+        name: "Sherabling Hostel",
+        rooms: 22,
+        booked: [9, 17],
+        image: "{% static 'images/sherabling.jpg' %}",
+      },
+      karmaling: {
+        name: "Karmaling Hostel",
+        rooms: 16,
+        booked: [2, 12],
+        image: "{% static 'images/Karmaling.jpg' %}",
+      },
     };
 
     // --- Load Home Page ---
@@ -155,6 +195,7 @@
       const hostel = hostelData[key];
       let html = `
         <h1>${hostel.name}</h1>
+        <img src="${hostel.image}" alt="${hostel.name}" class="hostel-image" />
         <p>${hostel.name} offers a comfortable stay with ${hostel.rooms} rooms available for students.</p>
         <div class="booking-box">
           <label for="room">Enter Room Number (1–${hostel.rooms}):</label>
